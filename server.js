@@ -144,6 +144,37 @@ io.on('connection', (socket) => {
     });
 });
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.json({ 
+        status: 'ok', 
+        sessions: sessions.size,
+        uptime: process.uptime()
+    });
+});
+
+// Sessions endpoint for active sessions browser
+app.get('/sessions', (req, res) => {
+    const activeSessions = [];
+    
+    for (const [sessionId, session] of sessions.entries()) {
+        const onlinePlayers = Array.from(session.players.values()).filter(p => p.online);
+        activeSessions.push({
+            id: sessionId,
+            playerCount: onlinePlayers.length,
+            totalPlayers: session.players.size,
+            createdAt: session.createdAt || Date.now(),
+            hasMaster: session.masterId !== null,
+            masterName: session.masterId ? session.players.get(session.masterId)?.name : null
+        });
+    }
+    
+    // Sort by creation time (newest first)
+    activeSessions.sort((a, b) => b.createdAt - a.createdAt);
+    
+    res.json({ sessions: activeSessions });
+});
+
 server.listen(PORT, () => {
     console.log(`🎲 Ucronie e Tesori server running on port ${PORT}`);
 });
