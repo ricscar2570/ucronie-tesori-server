@@ -1,7 +1,7 @@
 {
   "name": "ucronie-tesori-server",
   "version": "1.0.0",
-  "description": "Server multiplayer per Ucronie e Tesori GDR",
+  "description": "Server multiplayer per CHRONOCAIRN GDR",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

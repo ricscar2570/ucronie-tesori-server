@@ -22,7 +22,7 @@ app.use(cors());
 // Health check per Render
 app.get('/', (req, res) => {
     res.json({ 
-        message: 'Ucronie e Tesori Server Online',
+        message: 'CHRONOCAIRN Server Online',
         status: 'ok',
         sessions: sessions.size,
         timestamp: new Date().toISOString()
@@ -176,5 +176,5 @@ app.get('/sessions', (req, res) => {
 });
 
 server.listen(PORT, () => {
-    console.log(`🎲 Ucronie e Tesori server running on port ${PORT}`);
+    console.log(`🎲 CHRONOCAIRN server running on port ${PORT}`);
 });
